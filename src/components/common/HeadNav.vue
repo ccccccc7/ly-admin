@@ -2,7 +2,7 @@
   <div>
     <header class="head-nav">
       <el-row>
-        <el-col :span="4" class='logo-container'>
+        <el-col class='logo-container'>
           <img src="../../assets/logo.png" class="logo" alt="">
         </el-col>
       </el-row>
