@@ -9,11 +9,15 @@
         <aside>
           <left-menu style="height: 100%"></left-menu>
         </aside>
+        <!--右侧内容-->
         <section class="content-container">
           <div class="grid-content bg-purple-light">
             <el-col :span="24" class="content-wrapper">
+              <bread></bread>
               <transition name="fade" mode="out-in">
-                <router-view></router-view>
+                <keep-alive>
+                  <router-view></router-view>
+                </keep-alive>
               </transition>
             </el-col>
           </div>

@@ -2,7 +2,7 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import Home from '@/components/Home'
 import Index from '@/components/Index'
-import UserList from '@/components/user/list'
+import UserList from '@/components/user/List'
 
 Vue.use(Router)
 
@@ -12,20 +12,20 @@ export default new Router({
       path: '/',
       name: '首页',
       component: Home,
-      redirect: '/index',
       menuShow: true,
       iconCls: 'el-icon-menu',
-      leaf: true,
+      leaf: true, //只有一个节点
       children: [
-        {path: '/index', component: Index, name: '首页', menuShow: true}
+        {path: '/', component: Index, name: '首页', menuShow: false}
       ]
-    },{
-      path: '/user',
+    }, {
+      path: '/',
       name: '用户管理',
       menuShow: true,
+      component: Home,
       iconCls: 'el-icon-setting',
       children: [
-        {path: '/list', component: UserList,name: '用户列表',menuShow:true }
+        {path: '/user/list', component: UserList, name: '用户列表', menuShow: true}
       ]
     }
   ]
