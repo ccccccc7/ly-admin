@@ -9,7 +9,7 @@
         <i :class="isCollapse?'el-icon-d-arrow-right':'el-icon-d-arrow-left'"></i>
       </div>
       <template v-for="(item,index) in $router.options.routes" v-if="item.menuShow">
-        <el-submenu v-if="!item.leaf" :index="index++">
+        <el-submenu v-if="!item.leaf" :index="index++ + ''">
           <template slot="title">
             <i :class="item.iconCls"></i>
             <span slot="title">{{item.name}}</span>
@@ -17,7 +17,6 @@
             <el-menu-item v-for="term in item.children" :index="item.path + term.path" :key="term.path" v-if="term.menuShow">
               {{term.name}}
             </el-menu-item>
-
         </el-submenu>
         <el-menu-item v-else-if="item.leaf" :index="item.path">
           <i :class="item.iconCls"></i>
