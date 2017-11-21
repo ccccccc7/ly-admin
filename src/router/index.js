@@ -14,9 +14,10 @@ export default new Router({
       component: Home,
       menuShow: true,
       iconCls: 'el-icon-menu',
+      redirect: 'index',
       leaf: true, //只有一个节点
       children: [
-        {path: '/', component: Index, name: '首页', menuShow: false}
+        {path: '/index', component: Index, name: '首页', menuShow: false}
       ]
     }, {
       path: '/',
