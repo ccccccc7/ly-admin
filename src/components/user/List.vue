@@ -4,7 +4,8 @@
       <el-table-column prop="date" label="日期"/>
       <el-table-column prop="name" label="姓名"/>
     </el-table>
-    <el-button plain @click="getUser">新增</el-button>
+    <el-button plain @click="sucInfo">success</el-button>
+    <el-button plain @click="errInfo">error</el-button>
   </div>
 </template>
 
@@ -21,10 +22,17 @@
       }
     },
     methods: {
-      getUser: function () {
+      sucInfo: function () {
         ajax.get('/home', function (result) {
           console.log(result)
-        },function(){})
+        }, function () {
+        })
+      },
+      errInfo: function () {
+        ajax.post('/error', {}, function (result) {
+          console.log(result)
+        }, function () {
+        })
       }
     }
   }

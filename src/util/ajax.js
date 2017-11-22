@@ -1,46 +1,77 @@
-import Vue from 'vue'
 import axios from 'axios'
-import qs from 'qs'
+import Qs from 'qs'
+import {Message} from 'element-ui'
 
-//接口基础地址
-axios.defaults.baseURL = 'http://localhost:8001'
-//超时时间
-axios.defaults.timeout = 5000;
 //请求头
 axios.defaults.headers.post['Content-Type'] = 'applapplication/x-www-form-urlencoded;charset=UTF-8ic'
 
-//返回状态判断(添加响应拦截器)
-axios.interceptors.response.use((res) => {
-  //对响应数据做些事
-  if (!res.data.success) {
-    return Promise.reject(res);
-  }
-  return res;
-}, (error) => {
-  return Promise.reject(error);
+const Axios = axios.create({
+  baseURL: 'http://localhost:8001', //接口基础地址
+  timeout: 10000,                   //超时时间
+  responseType: 'json',
 });
 
-var ajax = {
-  post: function (url, data, suc, err) {
-    axios.post(url, qs.stringify(data))
-      .then((response) => {
-        if (response.data.success) {
-          suc(response)
-        } else {
-          err(response);
-        }
-      })
+//请求拦截器
+Axios.interceptors.request.use(
+  config => {
+    if (config.method === 'post') {
+      config.data = Qs.stringify(config.data)
+    }
+    return config;
   },
-  get: function (url, suc, err) {
-    axios.get(url).then((response) => {
-      if (response.data.success) {
-        suc(response.data)
-      } else {
-        err(response);
-      }
-    })
+  error => {
+    Message({
+      showClose: true,
+      message: error,
+      type: 'error.data.message'
+    });
+    return Promise.reject(error.data.message)
   }
-}
+);
+
+
+//响应拦截器
+Axios.interceptors.response.use(
+  (res) => {
+    if (res.data && !res.data.success) {
+      Message({
+        showClose: true,
+        message: res.data.message,
+        type: "error"
+      });
+    }
+    return res;
+  },
+  (error) => {
+    return Promise.reject(error);
+  }
+);
+
+var ajax = {
+  post: function (url, data, success, error) {
+    Axios.post(url, data)
+      .then(
+        (response) => {
+          if (response.data.success) {
+            success(response)
+          } else {
+            error(response);
+          }
+        }
+      )
+  },
+  get: function (url, success, error) {
+    Axios.get(url).then(
+      (response) => {
+        if (response.data.success) {
+          success(response.data)
+        } else {
+          error(response);
+        }
+      }
+    )
+  }
+};
 
 export default ajax;
 
