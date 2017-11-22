@@ -15,21 +15,12 @@ body{
   bottom: 0;
 }
 .container .content .content-container{
-  padding: 20px;
-  overflow-y: scroll;
+  padding: 10px 0 0 20px;
   -ms-flex: 1;
   flex: 1;
 }
-.container .content > aside {
-  /*border-right: solid 1px #e6e6e6*/
-}
-.logo-container {
-  /*text-align: center;*/
-}
 .head-nav {
   height: 60px;
-  /*line-height: 60px;*/
-  /*background-color: #373d41;*/
   color: #fff;
 }
 .head-nav .logo{
@@ -40,6 +31,9 @@ body{
   /*border-right-width: 1px;*/
   /*border-right-style: solid;*/
   height: 60px;
+}
+.menu {
+  height: 100%
 }
 .menuButton {
   padding: 10px 22px;

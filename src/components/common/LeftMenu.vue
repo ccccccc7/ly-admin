@@ -1,9 +1,6 @@
 <template>
-  <div>
-    <!--<div @click="isCollapse = !isCollapse" style="padding-left: 20px;color: #409EFF">-->
-    <!--<i :class="isCollapse?'el-icon-d-arrow-right':'el-icon-d-arrow-left'"></i>-->
-    <!--</div>-->
-    <el-menu default-active="1" :collapse="isCollapse" class="el-menu-vertical-demo" style="margin-top: 10px;height: 100%" router>
+  <div class="menu">
+    <el-menu default-active="1" :collapse="isCollapse" class="el-menu-vertical-demo" style="height: 100%" router>
       <div index="1" @click="isCollapse = !isCollapse" class="menuButton">
         <i :class="isCollapse?'el-icon-d-arrow-right':'el-icon-d-arrow-left'"></i>
       </div>
@@ -35,8 +32,7 @@
         isCollapse: false
       };
     },
-    methods: {
-    }
+    methods: {}
   }
 </script>
 
