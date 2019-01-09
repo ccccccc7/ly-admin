@@ -3,7 +3,7 @@
     <header class="head-nav">
       <el-row>
         <el-col class='logo-container'>
-          <img src="../../assets/logo.png" class="logo" alt="">
+          <el-progress :text-inside="true" :stroke-width="18" :percentage="datePercent"></el-progress>
         </el-col>
       </el-row>
     </header>
@@ -12,7 +12,12 @@
 
 <script>
   export default {
-    name: 'head-nav'
+    name: 'head-nav',
+    data() {
+      return {
+        datePercent: 10
+      }
+    }
   }
 </script>
 

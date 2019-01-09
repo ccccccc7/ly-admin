@@ -1,14 +1,16 @@
 <template>
   <div>
     <el-table :data="tableData" stripe style="width: 100%">
-      <el-table-column label="操作" width="100px">
+      <el-table-column label="操作">
         <template slot-scope="scope">
+          <el-button type="text" size="small" @click="handleEdit(scope.$index,scope.row)">详情</el-button>
           <el-button type="text" size="small" @click="handleEdit(scope.$index,scope.row)">编辑</el-button>
           <el-button type="text" size="small" @click="sucInfo">删除</el-button>
         </template>
       </el-table-column>
-      <el-table-column prop="date" label="日期"/>
-      <el-table-column prop="name" label="姓名"/>
+      <el-table-column prop="name" label="事件名称"/>
+      <el-table-column prop="date" label="事件日期"/>
+      <el-table-column prop="date" label="记录日期"/>
     </el-table>
     <div style="margin: 20px 0;">
       <el-button plain type="primary" @click="addUser">新增</el-button>
@@ -17,15 +19,18 @@
 </template>
 
 <script>
-  import ajax from '../../util/ajax'
-  import edit from './Edit.vue'
   export default {
-    components: ajax,
     data (){
       return {
         tableData: [{
-          date: '2016-9-12',
+          date: '2016-10-12',
           name: 'xxx'
+        },{
+          date: '2016-11-12',
+          name: '事件2'
+        },{
+          date: '2017-10-12',
+          name: '事件3'
         }]
       }
     },
@@ -52,5 +57,7 @@
     }
   }
 </script>
+
 <style scoped>
+
 </style>

@@ -5,10 +5,9 @@
         <el-card :body-style="{ padding: '0px'}">
           <img src="../../static/images/2.jpg" class="image">
           <div style="padding: 14px">
-            <span>哈哈</span>
             <div class="bottom clearfix">
-              <time class="time">{{currentDate}}</time>
-              <el-button type="text" class="button">按钮</el-button>
+              <!--<time class="time">{{currentDate}}</time>-->
+              <!--<el-button type="text" class="button">按钮</el-button>-->
             </div>
           </div>
         </el-card>

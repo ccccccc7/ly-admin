@@ -6,7 +6,7 @@ import {Message} from 'element-ui'
 axios.defaults.headers.post['Content-Type'] = 'applapplication/x-www-form-urlencoded;charset=UTF-8ic'
 
 const Axios = axios.create({
-  baseURL: 'http://localhost:8001', //接口基础地址
+  // baseURL: 'http://localhost:8001', //接口基础地址
   timeout: 10000,                   //超时时间
   responseType: 'json',
 });
