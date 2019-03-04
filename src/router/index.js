@@ -5,6 +5,7 @@ import Index from '@/components/Index'
 import UserList from '@/components/user/List'
 import DailyList from '@/components/daily/List'
 import CostList from '@/components/daily/Cost'
+import NewsList from '@/components/daily/News'
 
 Vue.use(Router)
 
@@ -38,7 +39,8 @@ export default new Router({
       iconCls: 'el-icon-tickets',
       children: [
         {path: '/daily/list', component: DailyList, name: '事件流水', menuShow: true},
-        {path: '/daily/cost', component: CostList, name: '日常收支', menuShow: true}
+        {path: '/daily/cost', component: CostList, name: '日常收支', menuShow: true},
+        {path: '/daily/news', component: NewsList, name: '新闻', menuShow: true}
       ]
     }
   ]
