@@ -90,7 +90,6 @@
         }
       },
       save: function () {
-        console.log(this.form)
         this.$refs.form.validate(valid => {
           if (valid) {
             let formJson = JSON.parse(JSON.stringify(this.form));
