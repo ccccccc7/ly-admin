@@ -4,7 +4,7 @@
       <el-table-column label="操作">
         <template slot-scope="scope">
           <el-button type="text" size="small" @click="detail(scope.$index,scope.row)">详情</el-button>
-          <el-button type="text" size="small" @click="edit(scope.$index,scope.row)">编辑</el-button>
+          <el-button type="text" size="small" @click="editDialog(scope.$index,scope.row)">编辑</el-button>
           <el-button type="text" size="small" @click="del(scope.$index,scope.row)">删除</el-button>
         </template>
       </el-table-column>
@@ -42,7 +42,7 @@
 
       <div slot="footer" class="dialog-footer">
         <el-button @click="formVisible = false">取 消</el-button>
-        <el-button type="primary" @click="add()">确 定</el-button>
+        <el-button type="primary" @click="save()">确 定</el-button>
       </div>
     </el-dialog>
   </div>
@@ -55,6 +55,7 @@
     },
     data (){
       return {
+        isAdd: true,
         formLabelWidth: '120px',
         formVisible: false,
         tableData: [],
@@ -79,6 +80,7 @@
       },
       openDialog: function () {
         this.formVisible = true;
+        this.isAdd = true;
         this.form = {
           title: '',
           createDate: new Date(),
@@ -87,23 +89,39 @@
           href: ''
         }
       },
-      add: function () {
+      save: function () {
+        console.log(this.form)
         this.$refs.form.validate(valid => {
           if (valid) {
             let formJson = JSON.parse(JSON.stringify(this.form));
+            if (this.isAdd) {
+              this.$http.post("http://localhost:9020/api/diary/add", formJson)
+                .then(() => {
+                  this.$message({
+                    message: "添加成功",
+                    type: "success"
+                  });
+                  this.fetchData();
+                  this.formVisible = false;
+                })
+                .catch(err => {
+                  this.$alert(err.body.message, "添加日常事件", { type: "error" });
+                })
+            } else {
+              this.$http.put("http://localhost:9020/api/diary", formJson)
+                .then(() => {
+                  this.$message({
+                    message: "修改成功",
+                    type: "success"
+                  });
+                  this.fetchData();
+                  this.formVisible = false;
+                })
+                .catch(err => {
+                  this.$alert(err.body.message, "修改日常事件", {type: "error"});
+                })
+            }
 
-            this.$http.post("http://localhost:9020/api/diary/add", formJson)
-              .then(() => {
-                this.$message({
-                  message: "添加成功",
-                  type: "success"
-                });
-                this.fetchData();
-                this.formVisible = false;
-              })
-              .catch(err => {
-              this.$alert(err.body.message, "添加日常事件", { type: "error" });
-            })
           } else {
             return false;
           }
@@ -124,9 +142,13 @@
               .catch(err => {this.$alert(err.body.message, '删除日常', {type: 'error'})})
           })
       },
-      edit: function(index,row) {
-        console.log(index)
-        console.log(row)
+      editDialog: function(index,row) {
+        let currentDairy = this.tableData.find(x => x.id === row.id);
+        this.form = JSON.parse(JSON.stringify(currentDairy));
+        this.form.businessDate = new Date(this.form.businessDate);
+        this.form.createDate = new Date(this.form.createDate);
+        this.formVisible = true;
+        this.isAdd = false;
       },
       detail: function(index, row) {
 
