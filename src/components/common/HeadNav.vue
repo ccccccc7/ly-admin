@@ -3,7 +3,7 @@
     <header class="head-nav">
       <el-row>
         <el-col class='logo-container'>
-          <el-progress :text-inside="true" :stroke-width="18" :percentage="datePercent"></el-progress>
+
         </el-col>
       </el-row>
     </header>

@@ -1,4 +1,5 @@
 import Vue from 'vue'
+import VueResource from 'vue-resource'
 import Router from 'vue-router'
 import Home from '@/components/Home'
 import Index from '@/components/Index'
@@ -8,6 +9,7 @@ import CostList from '@/components/daily/Cost'
 import NewsList from '@/components/daily/News'
 
 Vue.use(Router)
+Vue.use(VueResource)
 
 export default new Router({
   routes: [
