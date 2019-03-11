@@ -17,6 +17,14 @@
       <el-table-column prop="businessDate" label="事件日期"/>
       <el-table-column prop="createDate" label="记录日期"/>
     </el-table>
+    <el-pagination background
+                   :page-sizes="[10, 20, 50]"
+                   @size-change="handleSizeChange"
+                   @current-change="handleCurrenChange"
+                   layout="prev, pager, next,sizes ,total"
+                   :current-page="current"
+                   :page-size="size"
+                   :total="total"></el-pagination>
     <div style="margin: 20px 0;">
       <el-button plain type="primary" @click="openDialog()">新增</el-button>
     </div>
@@ -60,6 +68,10 @@
         formVisible: false,
         tableData: [],
         form: {},
+        current: 1,
+        size: 10,
+        total: 10,
+        descs:[`id`],
         rules: {
           businessDate: [
             {type: "date", required: true, message: '请选择日期', trigger: 'change'}
@@ -72,10 +84,13 @@
     },
     methods: {
       fetchData: function () {
-        this.$http.post("http://localhost:9020/api/diary/list", {
-
+        this.$http.post("http://localhost:9020/api/diary/page", {
+          current: this.current,
+          size: this.size,
+          descs: this.descs
         }).then(response => {
-          this.tableData = response.body.result;
+          this.tableData = response.body.result.records;
+          this.total = response.body.result.total;
         }).catch(response => this.$alert(response.body.message, "日常", {type: 'error'}))
       },
       openDialog: function () {
@@ -151,6 +166,14 @@
       },
       detail: function(index, row) {
 
+      },
+      handleSizeChange: function(val) {
+        this.size = val;
+        this.fetchData();
+      },
+      handleCurrenChange: function(val) {
+        this.current = val;
+        this.fetchData();
       }
     }
   }
