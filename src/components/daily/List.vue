@@ -32,7 +32,7 @@
     <el-dialog title="事件记录" :visible.sync="formVisible">
       <el-form :model="form" :rules="rules" ref="form">
         <el-form-item prop="businessDate" label="时间" :label-width="formLabelWidth">
-          <el-date-picker type="date" v-model="form.businessDate"></el-date-picker>
+          <el-date-picker type="date" v-model="form.businessDate" value-format="yyyy-MM-dd"></el-date-picker>
         </el-form-item>
 
         <el-form-item prop="title" label="标题" :label-width="formLabelWidth">
@@ -74,7 +74,7 @@
         descs:[`id`],
         rules: {
           businessDate: [
-            {type: "date", required: true, message: '请选择日期', trigger: 'change'}
+            {required: true, message: '请选择日期', trigger: 'change'}
           ],
           title: [
             {required: true, message: '请填写标题', trigger: 'change'}
@@ -107,7 +107,7 @@
       save: function () {
         this.$refs.form.validate(valid => {
           if (valid) {
-            let formJson = JSON.parse(JSON.stringify(this.form));
+            let formJson = this.form;
             if (this.isAdd) {
               this.$http.post("http://localhost:9020/api/diary/add", formJson)
                 .then(() => {
