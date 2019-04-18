@@ -6,7 +6,7 @@ import Index from '@/components/Index'
 import UserList from '@/components/user/List'
 import DailyList from '@/components/daily/List'
 import CostList from '@/components/daily/Cost'
-import NewsList from '@/components/daily/News'
+import ReplayList from '@/components/daily/Replay'
 
 Vue.use(Router)
 Vue.use(VueResource)
@@ -42,7 +42,7 @@ export default new Router({
       children: [
         {path: '/daily/list', component: DailyList, name: '事件流水', menuShow: true},
         {path: '/daily/cost', component: CostList, name: '日常收支', menuShow: true},
-        {path: '/daily/news', component: NewsList, name: '新闻', menuShow: true}
+        {path: '/daily/replay', component: ReplayList, name: '每日复盘', menuShow: true}
       ]
     }
   ]
