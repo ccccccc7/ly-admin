@@ -6,12 +6,13 @@ import Index from '@/components/Index'
 import UserList from '@/components/user/List'
 import DailyList from '@/components/daily/List'
 import CostList from '@/components/daily/Cost'
-import ReplayList from '@/components/daily/Replay'
+import ReplayList from '@/components/daily/replay/List'
+import AddReplay from '@/components/daily/replay/Add'
 
 Vue.use(Router)
 Vue.use(VueResource)
 
-export default new Router({
+var router = new Router({
   routes: [
     {
       path: '/',
@@ -42,8 +43,22 @@ export default new Router({
       children: [
         {path: '/daily/list', component: DailyList, name: '事件流水', menuShow: true},
         {path: '/daily/cost', component: CostList, name: '日常收支', menuShow: true},
-        {path: '/daily/replay', component: ReplayList, name: '每日复盘', menuShow: true}
+        {path: '/daily/replay', component: ReplayList, name: '每日复盘', menuShow: true, children: [
+            {
+              path: 'add',
+              name: '新增复盘',
+              component: AddReplay}
+          ]}
       ]
     }
   ]
 })
+
+var routeList = []
+
+router.beforeEach((to, from, next) => {
+  console.log(to)
+  next()
+});
+
+export default router

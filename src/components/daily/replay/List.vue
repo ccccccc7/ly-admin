@@ -20,29 +20,8 @@
                    :page-size="size"
                    :total="total"></el-pagination>
     <div style="margin: 20px 0;">
-      <el-button plain type="primary" size="small" @click="openDialog()">新增</el-button>
+      <el-button plain type="primary" size="small" @click="add()">新增</el-button>
     </div>
-
-    <el-dialog title="复盘记录" :visible.sync="formVisible">
-      <el-form :model="form" :rules="rules" ref="form">
-        <el-form-item prop="createDate" label="时间" :label-width="formLabelWidth">
-          <el-date-picker type="date" v-model="form.createDate" value-format="yyyy-MM-dd"></el-date-picker>
-        </el-form-item>
-
-        <el-form-item prop="title" label="标题" :label-width="formLabelWidth">
-          <el-input v-model="form.title" auto-complete="off"></el-input>
-        </el-form-item>
-
-        <el-form-item label="记录" :label-width="formLabelWidth">
-          <el-input type="textarea" :rows="10" placeholder="请输入内容" v-model="form.content"></el-input>
-        </el-form-item>
-      </el-form>
-
-      <div slot="footer" class="dialog-footer">
-        <el-button size="small" @click="formVisible = false">取 消</el-button>
-        <el-button size="small" type="primary" @click="save()">确 定</el-button>
-      </div>
-    </el-dialog>
   </div>
 </template>
 
@@ -83,14 +62,8 @@
           this.total = response.body.result.total;
         }).catch(response => this.$alert(response.body.message, "每日复盘", {type: 'error'}))
       },
-      openDialog: function () {
-        this.formVisible = true;
-        this.isAdd = true;
-        this.form = {
-          title: (new Date()).getFullYear() + '年' + ((new Date()).getMonth() + 1) + '月' + (new Date()).getDate() + '日复盘',
-          createDate: new Date(),
-          content: ''
-        }
+      add: function () {
+        this.$router.push('/daily/replay/add');
       },
       save: function () {
         this.$refs.form.validate(valid => {
