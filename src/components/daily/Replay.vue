@@ -74,7 +74,7 @@
     },
     methods: {
       fetchData: function () {
-        this.$http.post("http://localhost:9020/api/replay/page", {
+        this.$http.post("/api/replay/page", {
           current: this.current,
           size: this.size,
           descs: this.descs
@@ -97,7 +97,7 @@
           if (valid) {
             let formJson = this.form;
             if (this.isAdd) {
-              this.$http.post("http://localhost:9020/api/replay", formJson)
+              this.$http.post("/api/replay", formJson)
                 .then(() => {
                   this.$message({
                     message: "添加成功",
@@ -110,7 +110,7 @@
                   this.$alert(err.body.message, "添加复盘", { type: "error" });
                 })
             } else {
-              this.$http.put("http://localhost:9020/api/replay", formJson)
+              this.$http.put("/api/replay", formJson)
                 .then(() => {
                   this.$message({
                     message: "修改成功",
@@ -131,7 +131,7 @@
       del: function(index, row) {
         this.$confirm("是否确认删除?","警告",{type: 'warning'})
           .then(() => {
-            this.$http.delete("http://localhost:9020/api/replay/" + row.id)
+            this.$http.delete("/api/replay/" + row.id)
               .then(response => {
                   this.$message({
                     message: '删除成功',
