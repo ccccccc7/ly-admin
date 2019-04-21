@@ -61,4 +61,8 @@ body {
   display: inline-block;
 }
 
+.createPost-container {
+  padding: 40px 45px 20px 20px;
+}
+
 

@@ -30,7 +30,7 @@
     created: function () {
       this.fetchData();
     },
-    data (){
+    data() {
       return {
         isAdd: true,
         formLabelWidth: '120px',
@@ -40,7 +40,7 @@
         current: 1,
         size: 10,
         total: 10,
-        descs:[`id`],
+        descs: [`id`],
         rules: {
           businessDate: [
             {required: true, message: '请选择日期', trigger: 'change'}
@@ -63,7 +63,7 @@
         }).catch(response => this.$alert(response.body.message, "每日复盘", {type: 'error'}))
       },
       add: function () {
-        this.$router.push('/daily/replay/add');
+        this.$router.push({path: '/replay/add'});
       },
       save: function () {
         this.$refs.form.validate(valid => {
@@ -80,7 +80,7 @@
                   this.formVisible = false;
                 })
                 .catch(err => {
-                  this.$alert(err.body.message, "添加复盘", { type: "error" });
+                  this.$alert(err.body.message, "添加复盘", {type: "error"});
                 })
             } else {
               this.$http.put("/api/replay", formJson)
@@ -101,8 +101,8 @@
           }
         })
       },
-      del: function(index, row) {
-        this.$confirm("是否确认删除?","警告",{type: 'warning'})
+      del: function (index, row) {
+        this.$confirm("是否确认删除?", "警告", {type: 'warning'})
           .then(() => {
             this.$http.delete("/api/replay/" + row.id)
               .then(response => {
@@ -113,24 +113,26 @@
                   this.fetchData();
                 }
               )
-              .catch(err => {this.$alert(err.body.message, '删除复盘记录', {type: 'error'})})
+              .catch(err => {
+                this.$alert(err.body.message, '删除复盘记录', {type: 'error'})
+              })
           })
       },
-      editDialog: function(index,row) {
+      editDialog: function (index, row) {
         let currentDairy = this.tableData.find(x => x.id === row.id);
         this.form = JSON.parse(JSON.stringify(currentDairy));
         this.form.createDate = new Date(this.form.createDate);
         this.formVisible = true;
         this.isAdd = false;
       },
-      detail: function(index, row) {
+      detail: function (index, row) {
 
       },
-      handleSizeChange: function(val) {
+      handleSizeChange: function (val) {
         this.size = val;
         this.fetchData();
       },
-      handleCurrentChange: function(val) {
+      handleCurrentChange: function (val) {
         this.current = val;
         this.fetchData();
       }
