@@ -1,10 +1,17 @@
 <template>
-  <div>
-
+  <div :class="{fullscreen:fullscreen}" class="tinymce-container editor-container">
+    <textarea :id="tinymceId" class="tinymce-textarea"/>
   </div>
 </template>
 
 <script>
+  import '../../../static/tinymce4.7.5/tinymce.min'
+  window.tinymce.baseURL = '/static/tinymce4.7.5'
+  window.tinymce.suffix = '.min'
+
+  import plugins from './plugins'
+  import toolbar from './toolbar'
+
   export default {
     name: 'Tinymce',
     props: {
@@ -49,7 +56,7 @@
     },
     computed: {
       language() {
-        return this.languageTypeList[this.$store.getters.language]
+        return this.languageTypeList['zh']
       }
     },
     watch: {
@@ -130,11 +137,45 @@
       },
       getContent() {
         window.tinymce.get(this.tinymceId).getContent()
+      },
+      imageSuccessCBK(arr) {
+        const _this = this
+        arr.forEach(v => {
+          window.tinymce.get(_this.tinymceId).insertContent(`<img class="wscnph" src="${v.url}" >`)
+        })
       }
     }
   }
 </script>
 
 <style scoped>
+  .tinymce-container {
+    position: relative;
+    line-height: normal;
+  }
 
+  .tinymce-container >>> .mce-fullscreen {
+    z-index: 10000;
+  }
+
+  .tinymce-textarea {
+    visibility: hidden;
+    z-index: -1;
+  }
+
+  .editor-custom-btn-container {
+    position: absolute;
+    right: 4px;
+    top: 4px;
+    /*z-index: 2005;*/
+  }
+
+  .fullscreen .editor-custom-btn-container {
+    z-index: 10000;
+    position: fixed;
+  }
+
+  .editor-upload-btn {
+    display: inline-block;
+  }
 </style>

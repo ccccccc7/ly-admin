@@ -17,10 +17,7 @@
 </template>
 
 <script>
-  import ajax from '../../util/ajax'
-  import edit from './Edit.vue'
   export default {
-    components: ajax,
     data (){
       return {
         tableData: [{
@@ -30,18 +27,6 @@
       }
     },
     methods: {
-      sucInfo: function () {
-        ajax.get('/api/home', function (result) {
-          console.log(result)
-        }, function () {
-        })
-      },
-      errInfo: function () {
-        ajax.post('/api/error', {}, function (result) {
-          console.log(result)
-        }, function () {
-        })
-      },
       addUser: function () {
 
       },

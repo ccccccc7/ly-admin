@@ -26,6 +26,8 @@
 </template>
 
 <script>
+  import request from '@/util/request'
+
   export default {
     created: function () {
       this.fetchData();
@@ -53,17 +55,26 @@
     },
     methods: {
       fetchData: function () {
-        this.$http.post("/api/replay/page", {
+        let that = this;
+        this.$fetchList("/api/replay/page", {
           current: this.current,
           size: this.size,
           descs: this.descs
         }).then(response => {
-          this.tableData = response.body.result.records;
-          this.total = response.body.result.total;
-        }).catch(response => this.$alert(response.body.message, "每日复盘", {type: 'error'}))
+          that.tableData = response.result.records;
+          that.total = response.result.total;
+        }).catch(response => {
+          that.$alert(response.body.message, "每日复盘", {type: 'error'})
+        })
       },
       add: function () {
-        this.$router.push({path: '/replay/add'});
+        this.$router.push({path: '/replay/add', params: {isEdit: false}});
+      },
+      edit: function (index, row) {
+        let currentDairy = this.tableData.find(x => x.id === row.id);
+        let data = JSON.parse(JSON.stringify(currentDairy));
+        data.createDate = new Date(this.form.createDate);
+        this.$router.push({path: '/replay/edit/:id', params: {daily: data, isEdit: true}})
       },
       save: function () {
         this.$refs.form.validate(valid => {
@@ -104,10 +115,10 @@
       del: function (index, row) {
         this.$confirm("是否确认删除?", "警告", {type: 'warning'})
           .then(() => {
-            this.$http.delete("/api/replay/" + row.id)
+            this.$del("/api/replay/" + row.id)
               .then(response => {
                   this.$message({
-                    message: '删除成功',
+                    message: response.message,
                     type: 'success'
                   });
                   this.fetchData();
