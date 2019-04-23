@@ -15,9 +15,7 @@
             <el-col :span="24" class="content-wrapper">
               <bread></bread>
               <transition name="fade" mode="out-in">
-                <keep-alive>
                   <router-view></router-view>
-                </keep-alive>
               </transition>
             </el-col>
           </div>

@@ -21,10 +21,16 @@ const dailyRouter = {
       meta: {title: '新增复盘'},
       hidden: true
     }, {
-      path: '/replay/edit/:id',
-      component: () => import('@/views/daily/replay/add'),
-      name: 'AddReplay',
-      meta: {title: '新增复盘'},
+      path: '/replay/edit/:id(\\d+)',
+      component: () => import('@/views/daily/replay/edit'),
+      name: 'EditReplay',
+      meta: {title: '编辑复盘'},
+      hidden: true
+    }, {
+      path: '/replay/:id(\\d+)',
+      component: () => import('@/views/daily/replay/detail'),
+      name: 'ReplayDetail',
+      meta: {title: '复盘详情'},
       hidden: true
     }
   ]

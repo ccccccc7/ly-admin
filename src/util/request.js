@@ -51,7 +51,7 @@ export function fetch(url) {
   return new Promise((resolve, reject) => {
     axios.get(url)
       .then(response => {
-        resolve(response);
+        resolve(response.data);
       })
       .catch(err => {
         reject(err)
@@ -87,7 +87,7 @@ export function del(url) {
   return new Promise((resolve, reject) => {
     axios.delete(url)
       .then(response => {
-        resolve(response);
+        resolve(response.data);
       })
       .catch(err => {
         reject(err)

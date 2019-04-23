@@ -3,8 +3,12 @@
     <el-table :data="tableData" stripe style="width: 100%">
       <el-table-column label="操作">
         <template slot-scope="scope">
-          <el-button type="text" size="small" @click="detail(scope.$index,scope.row)">详情</el-button>
-          <el-button type="text" size="small" @click="editDialog(scope.$index,scope.row)">编辑</el-button>
+          <router-link :to="'/replay/' + scope.row.id">
+            <el-button type="text" size="small">详情</el-button>
+          </router-link>
+          <router-link :to="'/replay/edit/' + scope.row.id">
+            <el-button type="text" size="small">编辑</el-button>
+          </router-link>
           <el-button type="text" size="small" @click="del(scope.$index,scope.row)">删除</el-button>
         </template>
       </el-table-column>
@@ -20,14 +24,14 @@
                    :page-size="size"
                    :total="total"></el-pagination>
     <div style="margin: 20px 0;">
-      <el-button plain type="primary" size="small" @click="add()">新增</el-button>
+      <router-link :to="'/replay/add'">
+        <el-button plain type="primary" size="small">新增</el-button>
+      </router-link>
     </div>
   </div>
 </template>
 
 <script>
-  import request from '@/util/request'
-
   export default {
     created: function () {
       this.fetchData();
@@ -68,49 +72,7 @@
         })
       },
       add: function () {
-        this.$router.push({path: '/replay/add', params: {isEdit: false}});
-      },
-      edit: function (index, row) {
-        let currentDairy = this.tableData.find(x => x.id === row.id);
-        let data = JSON.parse(JSON.stringify(currentDairy));
-        data.createDate = new Date(this.form.createDate);
-        this.$router.push({path: '/replay/edit/:id', params: {daily: data, isEdit: true}})
-      },
-      save: function () {
-        this.$refs.form.validate(valid => {
-          if (valid) {
-            let formJson = this.form;
-            if (this.isAdd) {
-              this.$http.post("/api/replay", formJson)
-                .then(() => {
-                  this.$message({
-                    message: "添加成功",
-                    type: "success"
-                  });
-                  this.fetchData();
-                  this.formVisible = false;
-                })
-                .catch(err => {
-                  this.$alert(err.body.message, "添加复盘", {type: "error"});
-                })
-            } else {
-              this.$http.put("/api/replay", formJson)
-                .then(() => {
-                  this.$message({
-                    message: "修改成功",
-                    type: "success"
-                  });
-                  this.fetchData();
-                  this.formVisible = false;
-                })
-                .catch(err => {
-                  this.$alert(err.body.message, "修改复盘", {type: "error"});
-                })
-            }
-          } else {
-            return false;
-          }
-        })
+        this.$router.push({path: '/replay/add', query: {isEdit: false}});
       },
       del: function (index, row) {
         this.$confirm("是否确认删除?", "警告", {type: 'warning'})
@@ -128,16 +90,6 @@
                 this.$alert(err.body.message, '删除复盘记录', {type: 'error'})
               })
           })
-      },
-      editDialog: function (index, row) {
-        let currentDairy = this.tableData.find(x => x.id === row.id);
-        this.form = JSON.parse(JSON.stringify(currentDairy));
-        this.form.createDate = new Date(this.form.createDate);
-        this.formVisible = true;
-        this.isAdd = false;
-      },
-      detail: function (index, row) {
-
       },
       handleSizeChange: function (val) {
         this.size = val;
