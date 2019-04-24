@@ -1,6 +1,5 @@
 <template>
-  <div class="detail-container">
-    <p v-html="form.content"/>
+  <div class="detail-container" v-html="form.content">
   </div>
 </template>
 

@@ -9,6 +9,10 @@
         <el-input v-model="form.title" auto-complete="off"></el-input>
       </el-form-item>
 
+      <el-form-item prop="keyword" label="关键字">
+        <el-input v-model="form.keyword"></el-input>
+      </el-form-item>
+
       <el-form-item label="记录">
         <tinymce ref="editor" placeholder="请输入内容" v-model="form.content"></tinymce>
       </el-form-item>
@@ -27,7 +31,8 @@
   const defaultForm = {
     title: (new Date()).getFullYear() + '年' + ((new Date()).getMonth() + 1) + '月' + (new Date()).getDate() + '日复盘',
     createDate: new Date(),
-    content: ''
+    content: '',
+    keyword: ''
   }
   export default {
     name: "ReplayComponent",

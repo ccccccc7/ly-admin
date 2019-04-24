@@ -13,6 +13,7 @@
         </template>
       </el-table-column>
       <el-table-column prop="title" label="标题"/>
+      <el-table-column prop="keyword" label="关键字"/>
       <el-table-column prop="createDate" label="记录日期"/>
     </el-table>
     <el-pagination small
@@ -32,6 +33,7 @@
 </template>
 
 <script>
+
   export default {
     created: function () {
       this.fetchData();
