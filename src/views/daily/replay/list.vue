@@ -1,5 +1,11 @@
 <template>
   <div>
+    <div class="search-container">
+      <div class="block">
+        <el-date-picker type="date" size="small" v-model="form.createDate" value-format="yyyy-MM-dd" placeholder="选择日期"></el-date-picker>
+      </div>
+      <el-button plain type="primary" size="small" @click="fetchData()">搜索</el-button>
+    </div>
     <el-table :data="tableData" stripe style="width: 100%">
       <el-table-column label="操作">
         <template slot-scope="scope">
@@ -45,6 +51,7 @@
         formVisible: false,
         tableData: [],
         form: {},
+        query: {},
         current: 1,
         size: 10,
         total: 10,
