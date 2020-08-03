@@ -1,12 +1,15 @@
-body{
-  padding: 0; margin: 0;
+body {
+  padding: 0;
+  margin: 0;
 }
+
 .container {
   position: absolute;
   top: 0;
   bottom: 0;
   width: 100%;
 }
+
 .container .content {
   display: -ms-flexbox;
   display: flex;
@@ -14,25 +17,20 @@ body{
   top: 60px;
   bottom: 0;
 }
-.container .content .content-container{
-  padding: 20px;
-  overflow-y: scroll;
+
+.container .content .content-container {
+  width: 80%;
+  padding: 10px 0 0 20px;
   -ms-flex: 1;
   flex: 1;
 }
-.container .content > aside {
-  /*border-right: solid 1px #e6e6e6*/
-}
-.logo-container {
-  /*text-align: center;*/
-}
+
 .head-nav {
   height: 60px;
-  /*line-height: 60px;*/
-  /*background-color: #373d41;*/
   color: #fff;
 }
-.head-nav .logo{
+
+.head-nav .logo {
   width: 60px;
   line-height: 60px;
   font-size: 22px;
@@ -41,11 +39,39 @@ body{
   /*border-right-style: solid;*/
   height: 60px;
 }
+
+.menu {
+  height: 100%;
+}
+
 .menuButton {
   padding: 10px 22px;
   color: #878d99;
   font-size: 18px;
-  cursor:pointer;
+  cursor: pointer;
+}
+
+.search-container {
+  padding: 0;
+  margin: 0 auto;
+}
+
+.search-container .block {
+  padding: 20px 10px;
+  text-align: center;
+  display: inline-block;
+}
+
+.createPost-container {
+  padding: 40px 45px 20px 20px;
+}
+
+.detail-container {
+  max-width: 700px;
+  margin: 0 auto;
+  word-wrap:break-word;
+  word-break:break-all;
+  overflow: hidden;
 }
 
 

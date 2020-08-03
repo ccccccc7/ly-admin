@@ -1,26 +1,19 @@
 <template>
-  <div>
-    <!--<div @click="isCollapse = !isCollapse" style="padding-left: 20px;color: #409EFF">-->
-    <!--<i :class="isCollapse?'el-icon-d-arrow-right':'el-icon-d-arrow-left'"></i>-->
-    <!--</div>-->
-    <el-menu default-active="1" :collapse="isCollapse" class="el-menu-vertical-demo" style="margin-top: 10px;height: 100%" router>
+  <div class="menu">
+    <el-menu default-active="1" :collapse="isCollapse" class="el-menu-vertical-demo" style="height: 100%" router>
       <div index="1" @click="isCollapse = !isCollapse" class="menuButton">
         <i :class="isCollapse?'el-icon-d-arrow-right':'el-icon-d-arrow-left'"></i>
       </div>
       <template v-for="(item,index) in $router.options.routes" v-if="!item.hidden">
-        <el-submenu v-if="!item.hidden && !item.leaf" :index="index+''">
+        <el-submenu :index="index++ + ''">
           <template slot="title">
-            <i :class="item.iconCls"></i>
-            <span slot="title">{{item.name}}</span>
+            <i :class="item.meta.icon"></i>
+            <span slot="title">{{item.meta.title}}</span>
           </template>
           <el-menu-item v-for="term in item.children" :index="term.path" :key="term.path" v-if="!term.hidden">
-            {{term.name}}
+            {{term.meta.title}}
           </el-menu-item>
         </el-submenu>
-        <el-menu-item v-else-if="item.leaf && !item.hidden" :index="item.path" :key="item.path">
-          <i :class="item.iconCls"></i>
-          <span slot="title">{{item.name}}</span>
-        </el-menu-item>
       </template>
     </el-menu>
   </div>
@@ -35,8 +28,7 @@
         isCollapse: false
       };
     },
-    methods: {
-    }
+    methods: {}
   }
 </script>
 

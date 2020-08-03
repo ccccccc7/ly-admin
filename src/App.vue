@@ -7,6 +7,7 @@
 </template>
 
 <script>
+  import yoyoyo from './util/yoyoyo.js';
 export default {
   name: 'app'
 }

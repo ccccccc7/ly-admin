@@ -1,19 +1,13 @@
 <template>
   <div>
-    <el-row>
-      <el-col :span="4">
-        <el-card :body-style="{ padding: '0px'}">
-          <img src="../../static/images/1.jpeg" class="image">
-          <div style="padding: 14px">
-            <span>哈哈</span>
-            <div class="bottom clearfix">
-              <time class="time">{{currentDate}}</time>
-              <el-button type="text" class="button">按钮</el-button>
-            </div>
-          </div>
-        </el-card>
-      </el-col>
-    </el-row>
+    <el-timeline>
+      <el-timeline-item
+        v-for="(activity, index) in activities"
+        :key="index"
+        :timestamp="activity.timestamp">
+        {{activity.content}}
+      </el-timeline-item>
+    </el-timeline>
   </div>
 </template>
 
@@ -21,7 +15,16 @@
   export default {
     data() {
       return {
-        currentDate: new Date()
+        activities: [{
+          content: '活动按期开始',
+          timestamp: '2018-04-15'
+        }, {
+          content: '通过审核',
+          timestamp: '2018-04-13'
+        }, {
+          content: '创建成功',
+          timestamp: '2018-04-11'
+        }]
       };
     }
   }

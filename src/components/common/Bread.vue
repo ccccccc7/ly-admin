@@ -4,7 +4,7 @@
       <el-col>
         <el-breadcrumb separator="/">
           <el-breadcrumb-item :to="{ path: '/'}" class="el-bread">首页</el-breadcrumb-item>
-          <el-breadcrumb-item v-for="(item,index) in $route.matched" :key="item.path" class="el-bread" :to="{path:item.path}" v-if="item.name != '首页'">{{item.name}}
+          <el-breadcrumb-item v-for="(item,index) in $route.matched" :key="item.path" class="el-bread" :to="{path:item.path}" v-if="item.meta.title !== '首页'">{{item.meta.title}}
           </el-breadcrumb-item>
         </el-breadcrumb>
       </el-col>

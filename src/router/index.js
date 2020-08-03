@@ -1,30 +1,49 @@
 import Vue from 'vue'
+import VueResource from 'vue-resource'
 import Router from 'vue-router'
 import Home from '@/components/Home'
 import Index from '@/components/Index'
-Vue.use(Router)
+import UserList from '@/components/user/List'
+import dailyRouter from './modules/daily'
 
-export default new Router({
+Vue.use(Router)
+Vue.use(VueResource)
+
+let router = new Router({
   routes: [
     {
       path: '/',
-      name: '首页',
+      name: 'Home',
       component: Home,
       iconCls: 'el-icon-menu',
       redirect: 'index',
-      leaf: true, //根节点
+      meta: {
+        title: '首页'
+      },
+      hidden: true,
       children: [
-        {path: '/index', component: Index, name: '首页', hidden: true}
+        {path: '/index', component: Index, name: '首页'}
       ]
     }, {
-      path: '/user',
-      name: '用户管理',
+      path: '/',
+      name: 'User',
+      meta: {
+        title: '用户管理',
+        icon: 'el-icon-setting',
+      },
       component: Home,
-      iconCls: 'el-icon-setting',
-      redirect:'list',
       children: [
-        {path: '/user/list', component: () => import('@/components/user/List'), name: '用户列表'}
+        {
+          path: '/user/list',
+          component: UserList,
+          name: 'UserList',
+          meta: {
+            title: '用户列表'
+          }
+        }
       ]
+    },
+    dailyRouter
     }, {
       path: '/security',
       name: '梭哈',
@@ -40,3 +59,11 @@ export default new Router({
     }
   ]
 })
+
+
+router.beforeEach((to, from, next) => {
+  console.log(to)
+  next()
+});
+
+export default router
