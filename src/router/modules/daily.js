@@ -1,15 +1,20 @@
 import Home from '@/components/Home'
 
 const dailyRouter = {
-  path: '/',
+  path: '/daily',
   meta: {
     title: '日常记录',
-    icon: 'el-icon-tickets'
+    icon: 'el-icon-sunny'
   },
   component: Home,
   name: 'Daily',
   children: [
     {
+      path: '/security',
+      component: () => import('@/views/daily/Index'),
+      name: 'SecurityIndex',
+      meta: {title: '数据汇总'}
+    },{
       path: '/replay',
       component: () => import('@/views/daily/replay/list'),
       name: 'ReplayList',

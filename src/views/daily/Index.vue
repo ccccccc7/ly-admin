@@ -6,14 +6,13 @@
 
 <script>
     import Card from '@/components/Share/Card'
-    import ajax from '../../util/ajax'
 
     export default {
-        components: {ajax, Card},
+        components: {Card},
         data() {
             return {
                 timer: "",
-                currentTime: new Date(),
+                currentTime: "",
                 securityList: [
                   '北上数据'
                 ]

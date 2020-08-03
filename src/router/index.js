@@ -44,19 +44,6 @@ let router = new Router({
       ]
     },
     dailyRouter
-    }, {
-      path: '/security',
-      name: '梭哈',
-      component: Home,
-      menuShow: true,
-      iconCls: 'el-icon-sunny',
-      redirect: '/security/index',
-      children: [{
-          path: '/security/index',
-          name: '数据汇总',
-          component: () => import('@/views/security/Home')
-      }]
-    }
   ]
 })
 
