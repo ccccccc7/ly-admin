@@ -7,17 +7,17 @@
       <div index="1" @click="isCollapse = !isCollapse" class="menuButton">
         <i :class="isCollapse?'el-icon-d-arrow-right':'el-icon-d-arrow-left'"></i>
       </div>
-      <template v-for="(item,index) in $router.options.routes" v-if="item.menuShow">
-        <el-submenu v-if="!item.leaf" :index="index++ + ''">
+      <template v-for="(item,index) in $router.options.routes" v-if="!item.hidden">
+        <el-submenu v-if="!item.hidden && !item.leaf" :index="index+''">
           <template slot="title">
             <i :class="item.iconCls"></i>
             <span slot="title">{{item.name}}</span>
           </template>
-          <el-menu-item v-for="term in item.children" :index="term.path" :key="term.path" v-if="term.menuShow">
+          <el-menu-item v-for="term in item.children" :index="term.path" :key="term.path" v-if="!term.hidden">
             {{term.name}}
           </el-menu-item>
         </el-submenu>
-        <el-menu-item v-else-if="item.leaf && item.menuShow" :index="item.path" :key="item.path">
+        <el-menu-item v-else-if="item.leaf && !item.hidden" :index="item.path" :key="item.path">
           <i :class="item.iconCls"></i>
           <span slot="title">{{item.name}}</span>
         </el-menu-item>
