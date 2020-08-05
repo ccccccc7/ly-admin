@@ -8,9 +8,10 @@ const dailyRouter = {
   },
   component: Home,
   name: 'Daily',
+  redirect: '/replay/index',
   children: [
     {
-      path: '/security',
+      path: '/replay/index',
       component: () => import('@/views/daily/Index'),
       name: 'SecurityIndex',
       meta: {title: '数据汇总'}
