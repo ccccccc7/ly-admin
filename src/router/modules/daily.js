@@ -38,6 +38,17 @@ const dailyRouter = {
       name: 'ReplayDetail',
       meta: {title: '复盘详情'},
       hidden: true
+    }, {
+      path: '/mistake',
+      component: ()=> import('@/views/daily/mistake/list'),
+      name: 'MistakeList',
+      meta: {title: '错题集'}
+    }, {
+      path: '/mistake/add',
+      component: () => import('@/views/daily/mistake/add'),
+      name: 'AddMistake',
+      meta: {title: '新增错题'},
+      hidden: true
     }
   ]
 }
