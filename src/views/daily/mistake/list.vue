@@ -10,18 +10,18 @@
     <el-table :data="tableData" stripe style="width: 100%">
       <el-table-column label="操作">
         <template slot-scope="scope">
-          <router-link :to="'/replay/' + scope.row.id">
-            <el-button type="text" size="small">详情</el-button>
-          </router-link>
           <router-link :to="'/replay/edit/' + scope.row.id">
             <el-button type="text" size="small">编辑</el-button>
           </router-link>
           <el-button type="text" size="small" @click="del(scope.$index,scope.row)">删除</el-button>
         </template>
       </el-table-column>
-      <el-table-column prop="title" label="错题类型"/>
-      <el-table-column prop="keyword" label="错题个数"/>
+      <el-table-column prop="typeName" label="错题类型"/>
+      <el-table-column prop="count" label="错题个数"/>
+      <el-table-column prop="timeCount" label="做题时间"/>
+      <el-table-column prop="detailName" label="错题详情"/>
       <el-table-column prop="createDate" label="日期"/>
+
     </el-table>
     <el-pagination small
                    :page-sizes="[10, 20, 50]"
@@ -41,7 +41,9 @@
 
 <script>
   export default {
-    name: "list",
+    created: function () {
+      this.fetchData();
+    },
     data() {
       return {
         isAdd: true,
