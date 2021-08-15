@@ -15,4 +15,5 @@ export default {
 
 <style>
   @import "../static/css/main.css";
+  @import "../static/css/common.css";
 </style>

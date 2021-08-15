@@ -15,7 +15,7 @@ const dailyRouter = {
       component: () => import('@/views/daily/Index'),
       name: 'SecurityIndex',
       meta: {title: '数据汇总'}
-    },{
+    }, {
       path: '/replay',
       component: () => import('@/views/daily/replay/list'),
       name: 'ReplayList',
@@ -40,7 +40,7 @@ const dailyRouter = {
       hidden: true
     }, {
       path: '/mistake',
-      component: ()=> import('@/views/daily/mistake/list'),
+      component: () => import('@/views/daily/mistake/list'),
       name: 'MistakeList',
       meta: {title: '错题集'}
     }, {
@@ -48,6 +48,12 @@ const dailyRouter = {
       component: () => import('@/views/daily/mistake/add'),
       name: 'AddMistake',
       meta: {title: '新增错题'},
+      hidden: true
+    }, {
+      path: '/mistake/chart',
+      component: () => import('@/views/daily/mistake/chart'),
+      name: 'MistakeChart',
+      meta: {title: '错题图表'},
       hidden: true
     }
   ]

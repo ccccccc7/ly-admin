@@ -3,10 +3,25 @@
     <div class="search-container">
       <div class="block">
         <el-date-picker type="date" size="small" v-model="form.createDate" value-format="yyyy-MM-dd"
-                        placeholder="选择日期"></el-date-picker>
+                        placeholder="开始日期"></el-date-picker>
+        <el-date-picker type="date" size="small" v-model="form.endDate" value-format="yyyy-MM-dd"
+                        placeholder="结束日期"></el-date-picker>
+      </div>
+      <div class="block">
+        <el-select size="small" v-model="form.typeId" filterable clearable placeholder="题目类型">
+          <el-option v-for="item in typeOptions" :key="item.id" :label="item.name" :value="item.id"></el-option>
+        </el-select>
       </div>
       <el-button plain type="primary" size="small" @click="fetchData()">搜索</el-button>
+
+      <router-link :to="'/mistake/chart'">
+        <div title="图表" class="block pointer">
+          <i class="el-icon-s-grid"></i>
+        </div>
+      </router-link>
+
     </div>
+
     <el-table :data="tableData" stripe style="width: 100%">
       <el-table-column label="操作">
         <template slot-scope="scope">
@@ -16,7 +31,7 @@
           <el-button type="text" size="small" @click="del(scope.$index,scope.row)">删除</el-button>
         </template>
       </el-table-column>
-      <el-table-column prop="typeName" label="错题类型"/>
+      <el-table-column prop="typeName" label="题目类型"/>
       <el-table-column prop="count" label="错题个数"/>
       <el-table-column prop="timeCount" label="做题时间"/>
       <el-table-column prop="detailName" label="错题详情"/>
@@ -43,6 +58,7 @@
   export default {
     created: function () {
       this.fetchData();
+      this.fetchType();
     },
     data() {
       return {
@@ -56,6 +72,7 @@
         size: 10,
         total: 10,
         descs: [`id`],
+        typeOptions: [],
         rules: {
           businessDate: [
             {required: true, message: '请选择日期', trigger: 'change'}
@@ -69,15 +86,23 @@
     methods: {
       fetchData: function () {
         let that = this;
-        this.$fetchList("/api/exam/page", {
+        this.$fetchList("/api/exam/page", Object.assign({
           current: this.current,
           size: this.size,
           descs: this.descs
-        }).then(response => {
+        }, that.form)).then(response => {
           that.tableData = response.result.records;
           that.total = response.result.total;
         }).catch(response => {
           that.$alert(response.body.message, "错题集", {type: 'error'})
+        })
+      },
+      fetchType: function () {
+        let that = this;
+        this.$post('/api/exam/type').then(response => {
+          that.typeOptions = response.result
+        }).catch(err => {
+          that.$alert(err, '获取错题类型失败', {type: 'error'})
         })
       },
       add: function () {
