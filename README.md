@@ -21,6 +21,9 @@ npm install vue-resource --save-dev
 
 #insall editor
 npm install vue-quill-editor --save
+
+#install echarts
+npm install echarts --save
 ```
 
 For a detailed explanation on how things work, check out the [guide](http://vuejs-templates.github.io/webpack/) and [docs for vue-loader](http://vuejs.github.io/vue-loader).
