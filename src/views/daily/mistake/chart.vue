@@ -21,24 +21,32 @@
     data() {
       return {
         chartColumn: null,
+        timeChart: null,
         form: {
           typeId: 1,
         },
         typeOptions: [],
         limitOptions: [
-          {value : 7},
-          {value : 30},
-          {value : 60}
+          {value: 7},
+          {value: 30},
+          {value: 60}
         ]
       }
     },
     methods: {
       drawLine: function () {
-        this.chartColumn = this.chartColumn = echarts.init(document.getElementById('chartColumn'))
+        this.chartColumn = echarts.init(document.getElementById('chartColumn'));
 
         this.chartColumn.setOption({
-          tooltip: {},
+          legend: {
+            data: ['错题数', '做题时间']
+          },
+          tooltip: {
+            trigger: 'axis'
+          },
           xAxis: {
+            type: 'category',
+            boundaryGap: false,
             data: []
           },
           yAxis: {
@@ -60,19 +68,26 @@
       },
       handleChartData: function (list) {
         let length = list.length;
-        let xData = [], yData = [];
+        let xData = [], yData = [], timeData = [];
         for (let i = 0; i < length; i++) {
-          xData.push(list[i]['createDate'])
-          yData.push(list[i]['count'])
+          xData.push(list[i]['createDate']);
+          yData.push(list[i]['count']);
+          timeData.push(list[i]['timeCount'])
         }
         let options;
         options = {
           xAxis: {
             data: xData
           },
-          series: {
-            data: yData
-          }
+          series: [{
+            name: '错题数量',
+            data: yData,
+            type: 'line'
+          }, {
+            name: '做题时间',
+            data: timeData,
+            type: 'line'
+          }]
         };
         return options;
       },
